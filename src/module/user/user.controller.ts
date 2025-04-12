@@ -17,31 +17,31 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  create(@Body() data: CreateUserDto) {
-    return this.userService.create(data);
+  async create(@Body() data: CreateUserDto) {
+    return await this.userService.create(data);
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async findAll() {
+    return await this.userService.findAll();
   }
 
-  @Get(':userId')  
-  findOne(@Param('userId', ParseIntPipe) userId: number) {  
-    return this.userService.findById(userId); 
+  @Get(':userId')
+  async findOne(@Param('userId', ParseIntPipe) userId: number) {
+    return await this.userService.findById(userId);
   }
 
-  @Put(':userId')  
-  update(
-    @Param('userId', ParseIntPipe) userId: number, 
+  @Put(':userId')
+  async update(
+    @Param('userId', ParseIntPipe) userId: number,
     @Body() data: UpdateUserDto,
   ) {
-    return this.userService.update(userId, data);  
+    return await this.userService.update(userId, data);
   }
 
-  @Delete(':userId')  
-  remove(@Param('userId', ParseIntPipe) userId: number) {  
-    this.userService.remove(userId);  
-    return { message: `User ${userId} deleted successfully` };  
+  @Delete(':userId')
+  async remove(@Param('userId', ParseIntPipe) userId: number) {
+    const result = await this.userService.remove(userId);
+    return { message: `User ${userId} deleted successfully`, result };
   }
 }

@@ -1,23 +1,20 @@
-import { IsArray, IsBoolean, IsDateString, IsEmail, IsNotEmpty } from 'class-validator';
+// src/module/user/dto/create-user.dto.ts
+
+import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class CreateUserDto {
-  @IsNotEmpty({ message: 'Full name is required' })
-  fullName: string;
+  @IsNotEmpty()
+  @IsString()
+  firstName: string;
 
-  @IsEmail({}, { message: 'Invalid email format' })
-  @IsNotEmpty({ message: 'Email address is required' })
-  emailAddress: string;
+  @IsNotEmpty()
+  @IsString()
+  lastName: string;
 
-  @IsNotEmpty({ message: 'Job title is required' })
-  jobTitle: string;
+  @IsEmail()
+  email: string;
 
-  @IsBoolean({ message: 'isVerified must be a boolean' })
-  isVerified: boolean;
-
-  @IsDateString({}, { message: 'Invalid date format for registrationDate' })
-  registrationDate: string;
-
-  @IsArray({ message: 'Interests must be an array of strings' })
-  @IsNotEmpty({ message: 'Interests are required' })
-  interests: string[];
+  @IsNotEmpty()
+  @MinLength(6)
+  password: string;
 }
